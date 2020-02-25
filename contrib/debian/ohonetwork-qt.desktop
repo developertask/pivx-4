@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=OHONETWORK Core
+Comment=OHONETWORK P2P Cryptocurrency
+Comment[fr]=OHONETWORK, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=OHONETWORK, eşten eşe kriptografik sanal para birimi
+Exec=ohonetwork-qt %u
+Terminal=false
+Type=Application
+Icon=ohonetwork128
+MimeType=x-scheme-handler/ohonetwork;
+Categories=Office;Finance;
+StartupWMClass=Ohonetwork-qt

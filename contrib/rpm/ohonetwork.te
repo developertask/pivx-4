@@ -1,0 +1,81 @@
+policy_module(ohonetwork, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type ohonetwork_t;
+type ohonetwork_exec_t;
+init_daemon_domain(ohonetwork_t, ohonetwork_exec_t)
+
+permissive ohonetwork_t;
+
+type ohonetwork_initrc_exec_t;
+init_script_file(ohonetwork_initrc_exec_t)
+
+type ohonetwork_conf_t;
+files_type(ohonetwork_conf_t)
+
+type ohonetwork_var_lib_t;
+files_type(ohonetwork_var_lib_t)
+
+type ohonetwork_var_run_t;
+files_type(ohonetwork_var_run_t)
+
+type ohonetwork_port_t;
+corenet_port(ohonetwork_port_t)
+
+########################################
+#
+# ohonetwork local policy
+#
+allow ohonetwork_t self:process { fork };
+
+allow ohonetwork_t self:fifo_file rw_fifo_file_perms;
+allow ohonetwork_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(ohonetwork_t, ohonetwork_conf_t, ohonetwork_conf_t)
+manage_files_pattern(ohonetwork_t, ohonetwork_conf_t, ohonetwork_conf_t)
+
+manage_dirs_pattern(ohonetwork_t, ohonetwork_var_lib_t, ohonetwork_var_lib_t)
+manage_files_pattern(ohonetwork_t, ohonetwork_var_lib_t, ohonetwork_var_lib_t)
+files_var_lib_filetrans(ohonetwork_t, ohonetwork_var_lib_t, { dir file })
+
+manage_dirs_pattern(ohonetwork_t, ohonetwork_var_run_t, ohonetwork_var_run_t)
+manage_files_pattern(ohonetwork_t, ohonetwork_var_run_t, ohonetwork_var_run_t)
+
+sysnet_dns_name_resolve(ohonetwork_t)
+corenet_all_recvfrom_unlabeled(ohonetwork_t)
+
+allow ohonetwork_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(ohonetwork_t)
+corenet_tcp_sendrecv_generic_node(ohonetwork_t)
+corenet_tcp_sendrecv_all_ports(ohonetwork_t)
+corenet_tcp_bind_generic_node(ohonetwork_t)
+
+gen_require(`
+    type ohonetwork_port_t;
+')
+allow ohonetwork_t ohonetwork_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type ohonetwork_port_t;
+')
+allow ohonetwork_t ohonetwork_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(ohonetwork_t)
+
+files_read_etc_files(ohonetwork_t)
+
+miscfiles_read_localization(ohonetwork_t)
+
+sysnet_dns_name_resolve(ohonetwork_t)
+
+allow ohonetwork_t ohonetwork_exec_t:file execute_no_trans;
+allow ohonetwork_t self:process setsched;
+corecmd_exec_ls(ohonetwork_t)
+corenet_tcp_connect_http_port(ohonetwork_t)
+dev_read_urand(ohonetwork_t)
+fs_getattr_xattr_fs(ohonetwork_t)
+kernel_read_system_state(ohonetwork_t)

@@ -1,0 +1,6 @@
+usr/local/bin/ohonetwork-qt usr/bin
+share/pixmaps/ohonetwork32.xpm usr/share/pixmaps
+share/pixmaps/ohonetwork16.xpm usr/share/pixmaps
+share/pixmaps/ohonetwork128.png usr/share/pixmaps
+debian/ohonetwork-qt.desktop usr/share/applications
+debian/ohonetwork-qt.protocol usr/share/kde4/services/

@@ -1,0 +1,8 @@
+/usr/bin/ohonetwork-cli		--	gen_context(system_u:object_r:ohonetwork_exec_t,s0)
+/usr/sbin/ohonetworkd		--	gen_context(system_u:object_r:ohonetwork_exec_t,s0)
+/usr/lib(64)?/ohonetwork/ohonetworkd		--	gen_context(system_u:object_r:ohonetwork_exec_t,s0)
+
+/etc/ohonetwork(/.*)?		gen_context(system_u:object_r:ohonetwork_conf_t,s0)
+/var/lib/ohonetwork(/.*)?		gen_context(system_u:object_r:ohonetwork_var_lib_t,s0)
+
+(/var)?/run/ohonetworkd(/.*)?   gen_context(system_u:object_r:ohonetwork_var_run_t,s0)
